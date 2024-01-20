@@ -90,7 +90,7 @@ public class productDetails extends javax.swing.JFrame {
         try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from product");
+            ResultSet rs = st.executeQuery("select * from supermarket");
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
         }
         catch(Exception e)

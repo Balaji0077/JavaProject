@@ -117,6 +117,7 @@ public class home extends javax.swing.JFrame{
         jButton9 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel23 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
 
         jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/billing/management/system/billing background.png"))); // NOI18N
 
@@ -363,7 +364,7 @@ public class home extends javax.swing.JFrame{
 
         jLabel24.setBackground(new java.awt.Color(255, 255, 255));
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/billing/management/system/billing background.png"))); // NOI18N
-        getContentPane().add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1180, 550));
+        getContentPane().add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1170, 560));
 
         jButton9.setText("jButton9");
         getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, -1, -1));
@@ -380,6 +381,15 @@ public class home extends javax.swing.JFrame{
 
         jLabel23.setText("jLabel23");
         getContentPane().add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 60, -1, -1));
+
+        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton6.setText("Show Products");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 570, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -399,7 +409,7 @@ public class home extends javax.swing.JFrame{
             
              Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from product where pID='"+pID+"'");
+            ResultSet rs = st.executeQuery("select * from supermarket where pID='"+pID+"'");
             if(rs.next())
             {
                jTextField6.setText(rs.getString(2));
@@ -484,9 +494,9 @@ public class home extends javax.swing.JFrame{
         Document doc = new Document();
         try{
             
-        PdfWriter writer = PdfWriter.getInstance(doc,new FileOutputStream(path+""+name+" "+jLabel15.getText()+" "+".pdf"));
+        PdfWriter writer = PdfWriter.getInstance(doc,new FileOutputStream(path+""+name+" "+"Bill"+" "+".pdf"));
         doc.open();
-        Paragraph paragraph1 = new Paragraph("                                                          SB Billing Management System\n                                                              Contact Number:939144164\n\n  "  );
+        Paragraph paragraph1 = new Paragraph("                                                          SN  Super Market Billing\n                                                              Contact Number:939144164\n\n  "  );
         doc.add(paragraph1);
         Paragraph lines = new Paragraph("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
         doc.add(lines);
@@ -564,10 +574,11 @@ public class home extends javax.swing.JFrame{
             
              Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from product where pName='"+pName+"'");
+            ResultSet rs = st.executeQuery("select * from supermarket where pName like '"+pName+"%'");
             if(rs.next())
             {
                jTextField5.setText(rs.getString(1));
+               jTextField6.setText(rs.getString(2));
                jTextField7.setText(rs.getString(3));
                jTextField9.setText(rs.getString(4));
                
@@ -575,7 +586,7 @@ public class home extends javax.swing.JFrame{
             }   
             else
             {
-                JOptionPane.showMessageDialog(null,"Enter valid product id");
+                JOptionPane.showMessageDialog(null,"Enter valid product name");
             }    
             
        con.close();
@@ -613,12 +624,12 @@ public class home extends javax.swing.JFrame{
         if(jTable1.getSelectedRowCount()==1)
         {
             model.removeRow(jTable1.getSelectedRow());
-            int sum = 0;
+            float sum = 0;
             for(int i =0;i<jTable1.getRowCount();i++)
             {
-                sum = sum + Integer.parseInt(jTable1.getValueAt(i, 4).toString());
+                sum = sum + Float.parseFloat(jTable1.getValueAt(i, 4).toString());
             } 
-            jTextField10.setText(Integer.toString(sum));
+            jTextField10.setText(Float.toString(sum));
             finalTotal = sum;
             
         }
@@ -636,6 +647,11 @@ public class home extends javax.swing.JFrame{
         
         
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        new productDetails().setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -679,6 +695,7 @@ public class home extends javax.swing.JFrame{
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

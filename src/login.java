@@ -1,5 +1,7 @@
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import java.sql.*;
+import Project.ConnectionProvider;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -138,16 +140,31 @@ public class login extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(null,"Enter Password!");
           
         }
-        else if(jTextField1.getText().contains("bma") && jPasswordField1.getText().contains("1234"))
-        {   setVisible(false);
-            new list().setVisible(true);
-            
-        }
         else
         {
-            JOptionPane.showMessageDialog(null,"Incorrect Username or password","Message",JOptionPane.ERROR_MESSAGE);
-           
-        }
+           try
+           {
+               Connection con = ConnectionProvider.getCon();
+               Statement st = con.createStatement();
+               String username = jTextField1.getText();
+               String password = jPasswordField1.getText();
+               String sql = "select * from login where username='"+username+"' and password='"+password+"'";
+               ResultSet rs = st.executeQuery(sql);
+               if(rs.next())
+               {
+                    setVisible(false);
+                    new list().setVisible(true);
+               }
+               else
+               {
+                    JOptionPane.showMessageDialog(null,"Incorrect Username or password","Message",JOptionPane.ERROR_MESSAGE);
+               }   
+           }
+           catch(Exception e)
+           {   
+                JOptionPane.showMessageDialog(null,e);
+           }
+        }   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained

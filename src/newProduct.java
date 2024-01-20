@@ -195,7 +195,7 @@ public class newProduct extends javax.swing.JFrame {
         {
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select max(pId) from product");
+            ResultSet rs = st.executeQuery("select max(pId) from supermarket");
             if(rs.first())
             {
                 int id = rs.getInt(1);
@@ -238,7 +238,7 @@ public class newProduct extends javax.swing.JFrame {
         {
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            st.executeUpdate("insert into product values('"+pId+"','"+pName+"','"+rate+"','"+description+"','"+activate+"')");
+            st.executeUpdate("insert into supermarket values('"+pId+"','"+pName+"','"+rate+"','"+description+"','"+activate+"')");
             JOptionPane.showMessageDialog(null,"Successfully Updated");
             setVisible(false);
             new newProduct().setVisible(true);

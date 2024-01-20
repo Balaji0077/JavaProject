@@ -161,8 +161,8 @@ public class deleteProduct extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String pID=jTextField1.getText();
-        if(pID.equals(""))
+        String pId=jTextField1.getText();
+        if(pId.equals(""))
         {
             JOptionPane.showMessageDialog(null,"Enter Product ID");
         }
@@ -171,7 +171,7 @@ public class deleteProduct extends javax.swing.JFrame {
         try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from product where pID='"+pID+"'");
+            ResultSet rs = st.executeQuery("select * from supermarket where pID='"+pId+"'");
             if(rs.next())
             { 
                 jTextField2.setText(rs.getString(2));
@@ -210,7 +210,7 @@ public class deleteProduct extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        String pID = jTextField1.getText();
+        String pId = jTextField1.getText();
         int a = JOptionPane.showConfirmDialog(null,"Do You want to Delete","Select",JOptionPane.YES_NO_OPTION);
         if(a==0)
         {
@@ -218,7 +218,7 @@ public class deleteProduct extends javax.swing.JFrame {
          {
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            st.executeUpdate("delete from product where pID='"+pID+"'");
+            st.executeUpdate("delete from supermarket where pID='"+pId+"'");
             setVisible(false);
             new deleteProduct().setVisible(true);
             

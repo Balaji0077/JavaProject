@@ -61,7 +61,7 @@ public class updateProduct extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(380, 160));
         setLocationByPlatform(true);
-        setMinimumSize(new java.awt.Dimension(841, 420));
+        setMinimumSize(new java.awt.Dimension(600, 420));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/billing/management/system/update product ani.gif"))); // NOI18N
@@ -152,6 +152,11 @@ public class updateProduct extends javax.swing.JFrame {
         getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 271, -1));
 
         jTextField5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 271, -1));
 
         jTextField6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -164,16 +169,16 @@ public class updateProduct extends javax.swing.JFrame {
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/billing/management/system/billing background.png"))); // NOI18N
         jLabel15.setText("jLabel15");
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 440));
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 500));
 
-        pack();
+        setSize(new java.awt.Dimension(606, 506));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String pID = jTextField1.getText();
-        if(pID.equals(""))
+        String pId = jTextField1.getText();
+        if(pId.equals(""))
         {
             JOptionPane.showMessageDialog(null,"Enter Product ID");
         }
@@ -183,7 +188,7 @@ public class updateProduct extends javax.swing.JFrame {
         {
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from product where pId='"+pID+"'");
+            ResultSet rs = st.executeQuery("select * from supermarket where pId='"+pId+"'");
             if(rs.next())
             {
              jTextField3.setText(rs.getString(2));
@@ -216,7 +221,7 @@ public class updateProduct extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        String pID=jTextField1.getText();
+        String pId=jTextField1.getText();
         String pName=jTextField3.getText();
         String rate=jTextField4.getText();
         String description=jTextField5.getText();
@@ -225,7 +230,7 @@ public class updateProduct extends javax.swing.JFrame {
         {
              Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            st.executeUpdate("update product set pName='"+pName+"',rate='"+rate+"',description='"+description+"',activate='"+activate+"' where pID='"+pID+"'");
+            st.executeUpdate("update supermarket set pName='"+pName+"',rate='"+rate+"',description='"+description+"',activate='"+activate+"' where pId='"+pId+"'");
             JOptionPane.showMessageDialog(null,"Successfully Updated");
             setVisible(false);
             new updateProduct().setVisible(true);
@@ -248,6 +253,10 @@ public class updateProduct extends javax.swing.JFrame {
         setVisible(false);
         
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
 
     /**
      * @param args the command line arguments
